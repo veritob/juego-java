@@ -13,18 +13,17 @@ import javax.swing.JPanel;
 public class Prueba1 extends JPanel implements Runnable, KeyListener {
 
 	private static final long serialVersionUID = 1L;
+	private final static int PANTALLA_INICIO = 1;
+	private final static int PANTALLA_JUEGO = 2;
 	private int anchoJuego;
 	private int largoJuego;
 	private Sonidos sonidos;
 	private PantallaImagen portada;
+	private PantallaImagen tablero;
+	private int pantallaActual;
+	private ElementoBasico jugador;
+	private ElementoBasico enemigo;
 
-	// Paleta
-	private int paletaPosicionX;
-	private int paletaPosicionY;
-	private int paletaVelocidadX;
-	private int paletaVelocidadY;
-	private int paletaAncho;
-	private int paletaLargo;
 
 	// Pelotita
 	private int pelotaPosicionX;
@@ -36,12 +35,16 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 
 	public Prueba1(int anchoJuego, int largoJuego) {
 		inicializarVentana(anchoJuego, largoJuego);
-		inicializarPelota();
-		inicializarPaleta();
+		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
 		sonidos.tocarSonido("tic");
 		this.sonidos.repetirSonido("tic");
-		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
+		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego.png");
+		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
+		this.enemigo = new Enemigo(200, 200 - 20, 0, 0, 40, 40, Color.red);
+		this.jugador = new Jugador(30, largoJuego - 20, 0, 0, 40, 40, Color.yellow);
+
+
 	}
 
 	private void inicializarPelota() {
@@ -49,15 +52,9 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.pelotaLargo = 20;
 		this.pelotaPosicionX = 400;
 		this.pelotaPosicionY = 300;
-//        this.pelotaVelocidadX = 3;
-//        this.pelotaVelocidadY = 3;
+
 	}
 
-	private void inicializarPaleta() {
-		this.paletaPosicionY = largoJuego - 20;
-		this.paletaAncho = 900;
-		this.paletaLargo = largoJuego;
-	}
 
 	private void inicializarVentana(int anchoJuego, int largoJuego) {
 		this.anchoJuego = anchoJuego;
@@ -80,11 +77,23 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 
 	private void actualizarAmbiente() {
 		verificarEstadoAmbiente();
-		moverPaleta();
-		moverPelota();
+		jugador.moverse();
+		enemigo.moverse();
 	}
 
 	private void verificarEstadoAmbiente() {
+		
+		if (enemigo.getPosicionX() < jugador.getPosicionX()) {
+			enemigo.setVelocidadX(1);
+		} else {
+			enemigo.setVelocidadX(-1);
+		}
+		
+		if (enemigo.getPosicionY() < jugador.getPosicionY()) {
+			enemigo.setVelocidadY(1);
+		} else {
+			enemigo.setVelocidadY(-1);
+		}
 		verificarRebotePelotaContraParedLateral();
 		verificarRebotePelotaContraLaParedSuperior();
 
@@ -113,12 +122,14 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		dibujarInicioJuego(g);
-		dibujar(g);
-	}
 
-	public void dibujar(Graphics graphics) {
-		dibujarPelota(graphics);
+		if (pantallaActual == PANTALLA_INICIO) {
+			dibujarPortada(g);
+		} else {
+			dibujarInicioJuego(g);
+		
+		}
+		dibujar();
 	}
 
 	private void esperar(int milisegundos) {
@@ -137,45 +148,41 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		if (e.getKeyCode() == 37) {
-			pelotaVelocidadX = -2;
-		}
-		if (e.getKeyCode() == 38) {
-			pelotaVelocidadY = -2;
-		}
-		if (e.getKeyCode() == 39) {
-			pelotaVelocidadX = 2;
-		}
-		if (e.getKeyCode() == 40) {
-			pelotaVelocidadY = 2;
+		if (pantallaActual == PANTALLA_INICIO) {
+			inicializarPelota();
+			pantallaActual = PANTALLA_JUEGO;
 		}
 
+		if (pantallaActual == PANTALLA_JUEGO) {
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				jugador.setVelocidadX(3);
+			}
+
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				jugador.setVelocidadX(-3);
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				jugador.setVelocidadY(-3);
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				jugador.setVelocidadY(3);
+			}
+			
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// si suelto la tecla 39 o la 37 se asigna velocidad 0 a la paleta
 		if (arg0.getKeyCode() == 39 || arg0.getKeyCode() == 37 || arg0.getKeyCode() == 38 || arg0.getKeyCode() == 40) {
-			pelotaVelocidadY = 0;
-			pelotaVelocidadX = 0;
+			jugador.setVelocidadX(0);
+			jugador.setVelocidadY(0);
+
 		}
 	}
-
-	private void dibujarPelota(Graphics graphics) {
-		graphics.setColor(Color.yellow);
-		graphics.fillOval(pelotaPosicionX, pelotaPosicionY, pelotaAncho, pelotaLargo);
-	}
-
-	private void moverPaleta() {
-		paletaPosicionX = paletaPosicionX + paletaVelocidadX;
-		paletaPosicionY = paletaPosicionY + paletaVelocidadY;
-	}
-
-	private void moverPelota() {
-		pelotaPosicionX = pelotaPosicionX + pelotaVelocidadX;
-		pelotaPosicionY = pelotaPosicionY + pelotaVelocidadY;
-	}
-
+	
 	private void cargarSonidos() {
 		try {
 			sonidos = new Sonidos();
@@ -190,6 +197,12 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	}
 
 	private void dibujarInicioJuego(Graphics g) {
+		tablero.dibujarse(g);
+		jugador.dibujarse(g);
+		enemigo.dibujarse(g);
+	}
+
+	private void dibujarPortada(Graphics g) {
 		portada.dibujarse(g);
 	}
 
