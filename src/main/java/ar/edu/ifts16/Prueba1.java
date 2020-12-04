@@ -20,6 +20,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private Sonidos sonidos;
 	private PantallaImagen portada;
 	private PantallaImagen tablero;
+	private int[][] tableroPosiciones;
 	private int pantallaActual;
 	private ElementoBasico jugador;
 	private ElementoBasico enemigo;
@@ -42,9 +43,23 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego.png");
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.enemigo = new Enemigo(200, 200 - 20, 0, 0, 40, 40, Color.red);
-		this.jugador = new Jugador(30, largoJuego - 20, 0, 0, 40, 40, Color.yellow);
+		this.jugador = new Jugador(40, largoJuego - 60, 0, 0, 30, 30, Color.yellow);
+		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
+	}
 
+	private int[][] inicializarTableroPosiciones(int anchoJuego, int largoJuego) {
+		int [][] resultado = new int[largoJuego][anchoJuego];
+		for (int i = 0; i < largoJuego; i++) {
+			for (int j = 0; j < anchoJuego; j++) {
+				if (i < 20 || i > largoJuego - 50 || j < 40 || j > anchoJuego - 60) {
+					resultado[i][j] = 1;
+				} else {
+					resultado[i][j] = 0;
+				}
+			}
+		}
 
+		return resultado;
 	}
 
 	private void inicializarPelota() {
@@ -88,7 +103,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		} else {
 			enemigo.setVelocidadX(-1);
 		}
-		
+
 		if (enemigo.getPosicionY() < jugador.getPosicionY()) {
 			enemigo.setVelocidadY(1);
 		} else {
@@ -96,22 +111,36 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		}
 		verificarRebotePelotaContraParedLateral();
 		verificarRebotePelotaContraLaParedSuperior();
-
 	}
 
 	// se verifica si la pelota colisiona contra la pared lateral, si es asi, se
 	// hace rebotar la pelota en el eje X
 	private void verificarRebotePelotaContraParedLateral() {
-		if (pelotaPosicionX <= 0 || pelotaPosicionX + pelotaAncho >= anchoJuego) {
-			pelotaVelocidadX = -pelotaVelocidadX;
+
+		double nuevaPosicionX = jugador.getPosicionX() + jugador.getVelocidadX();
+		double nuevaPosicionY = jugador.getPosicionY() + jugador.getVelocidadY();
+
+		if (jugador.getVelocidadX() != 0 || jugador.getVelocidadY() != 0) {
+			System.out.println(String.format("(%s, %s)", nuevaPosicionX, nuevaPosicionY));
+			System.out.println("anchoJuego = " + anchoJuego);
+			System.out.println("largoJuego = " + largoJuego);
+		}
+
+		if (nuevaPosicionX >= anchoJuego || nuevaPosicionX < 0) {
+			jugador.setVelocidadX(0);
+		} else if (nuevaPosicionY >=  largoJuego || nuevaPosicionY < 0) {
+			jugador.setVelocidadY(0);
+		} else if (tableroPosiciones[(int) nuevaPosicionY][(int) nuevaPosicionX] == 1) {
+			jugador.setVelocidadX(0);
+			jugador.setVelocidadY(0);
 		}
 	}
 
 	// se verifica si la pelota colisiona contra la pared superior, si es asi se
 	// hace rebotar la pelota en el eje Y
 	private void verificarRebotePelotaContraLaParedSuperior() {
-		if (pelotaPosicionY <= 0 || pelotaPosicionY + pelotaLargo >= largoJuego) {
-			pelotaVelocidadY = -pelotaVelocidadY;
+		if (jugador.getPosicionY() <= 0 || jugador.getPosicionY() + jugador.getAncho() >= largoJuego) {
+			jugador.setVelocidadY(0);
 		}
 	}
 
@@ -179,7 +208,6 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		if (arg0.getKeyCode() == 39 || arg0.getKeyCode() == 37 || arg0.getKeyCode() == 38 || arg0.getKeyCode() == 40) {
 			jugador.setVelocidadX(0);
 			jugador.setVelocidadY(0);
-
 		}
 	}
 	
@@ -208,29 +236,4 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 
 }
 
-//    private boolean hayColision(
-//            int elemento1PosicionX, int elemento1PosicionY, int elemento1Ancho, int elemento1Largo,
-//            int elemento2PosicionX, int elemento2PosicionY, int elemento2Ancho, int elemento2Largo) {
-//        if (
-//            haySolapamientoDeRango(
-//                elemento1PosicionX,
-//                elemento1PosicionX+elemento1Ancho,
-//                elemento2PosicionX,
-//                elemento2PosicionX+elemento2Ancho)
-//            &&     
-//            haySolapamientoDeRango(
-//                    elemento1PosicionY,
-//                    elemento1PosicionY+elemento1Largo,
-//                    elemento2PosicionY,
-//                    elemento2PosicionY+elemento2Largo)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//    
-//    private boolean haySolapamientoDeRango(int a, int b, int c, int d) {
-//        if (a < d && b > c  ) {
-//            return true;
-//        }
-//        return false;
-//    }
+  
