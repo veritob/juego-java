@@ -3,122 +3,90 @@ package ar.edu.ifts16;
 import java.awt.Color;
 import java.awt.Graphics;
 
+// este es el padre e implementa de la interfaz Elemento, de aqui extiende jugador y de jugador a jugadorImagen y EnemigoImagen-
 public abstract class ElementoBasico implements Elemento {
 
-    private double posicionX;
-    private double posicionY;
-    private double velocidadX;
-    private double velocidadY;
-    private int ancho;
-    private int largo;
-    private Color color;
+	private double posicionX;
+	private double posicionY;
+	private double velocidadX;
+	private double velocidadY;
+	private int ancho;
+	private int largo;
 
-    public ElementoBasico(int posicionX, int posicionY, double velocidadX, double velocidadY, int ancho, int largo, Color color) {
-        this.posicionX = posicionX;
-        this.posicionY = posicionY;
-        this.velocidadX = velocidadX;
-        this.velocidadY = velocidadY;
-        this.ancho = ancho;
-        this.largo = largo;
-        this.color = color;
-    }
+	public ElementoBasico(int posicionX, int posicionY, double velocidadX, double velocidadY, int ancho, int largo) {
+		this.posicionX = posicionX;
+		this.posicionY = posicionY;
+		this.velocidadX = velocidadX;
+		this.velocidadY = velocidadY;
+		this.ancho = ancho;
+		this.largo = largo;
 
-    public abstract void dibujarse(Graphics graphics);
+	}
 
-    public void moverse() {
-        posicionX = posicionX + velocidadX;
-        posicionY = posicionY + velocidadY;
-    }
+// aca getters y setters que utilizaran jugador y enemigo
+	public abstract void dibujarse(Graphics graphics);
 
-    public void rebotarEnEjeX() {
-        velocidadX = -velocidadX;
-    }
+	public void moverse() {
+		posicionX = posicionX + velocidadX;
+		posicionY = posicionY + velocidadY;
+	}
 
-    public void rebotarEnEjeY() {
-        velocidadY = -velocidadY;
-    }
+	public void rebotarEnEjeX() {
+		velocidadX = -velocidadX;
+	}
 
-    public double getVelocidadX() {
-        return velocidadX;
-    }
+	public void rebotarEnEjeY() {
+		velocidadY = -velocidadY;
+	}
 
-    public void setVelocidadX(double velocidadX) {
-        this.velocidadX = velocidadX;
-    }
+	public double getVelocidadX() {
+		return velocidadX;
+	}
 
-    public double getVelocidadY() {
-        return velocidadY;
-    }
+	public void setVelocidadX(double velocidadX) {
+		this.velocidadX = velocidadX;
+	}
 
-    public void setVelocidadY(double velocidadY) {
-        this.velocidadY = velocidadY;
-    }
+	public double getVelocidadY() {
+		return velocidadY;
+	}
 
-    public double getPosicionX() {
-        return posicionX;
-    }
+	public void setVelocidadY(double velocidadY) {
+		this.velocidadY = velocidadY;
+	}
 
-    public double getPosicionY() {
-        return posicionY;
-    }
+	public double getPosicionX() {
+		return posicionX;
+	}
 
-    public void setPosicionX(double posicionX) {
-        this.posicionX = posicionX;
-    }
+	public double getPosicionY() {
+		return posicionY;
+	}
 
-    public void setPosicionY(double posicionY) {
-        this.posicionY = posicionY;
-    }
+	public void setPosicionX(double posicionX) {
+		this.posicionX = posicionX;
+	}
 
-    public int getAncho() {
-        return ancho;
-    }
+	public void setPosicionY(double posicionY) {
+		this.posicionY = posicionY;
+	}
 
-    public int getLargo() {
-        return largo;
-    }
+	public int getAncho() {
+		return ancho;
+	}
 
-    public Color getColor() {
-        return color;
-    }
+	public int getLargo() {
+		return largo;
+	}
 
-    public void setAncho(int ancho) {
-        this.ancho = ancho;
-    }
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
 
-    public void setLargo(int largo) {
-        this.largo = largo;
-    }
+	public void setLargo(int largo) {
+		this.largo = largo;
+	}
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+	protected abstract void setMoverse(int i);
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
