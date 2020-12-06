@@ -20,7 +20,7 @@ public class PantallaImagen implements Dibujable {
             String path = Paths.get(PantallaImagen.class.getClassLoader().getResource(resource).toURI()).toString();
             this.img = ImageIO.read(new File(path));
         } catch (Exception e1) {
-            throw new RuntimeException(e1);
+            throw new RuntimeException("Error al cargar imagen", e1);
         }
     }
 
