@@ -1,11 +1,29 @@
 package ar.edu.ifts16;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 public class Inicio {
-
-	public static void main(String[] args) {
+	private final Font smallfont = new Font("Helvetica", Font.BOLD, 14);
+	private final int tamañoBloque = 24;
+    private final int cantidadBloque = 15;
+    private final int tamañoPantalla = cantidadBloque * tamañoBloque;
+    private int vidas, puntaje;
+    private Image pacman3left;
+    private Dimension d;
+    private Image ii;
+    
+    public static void main(String[] args) {
 
 		// Propiedades del Juego
 		int anchoVentana = 800;
@@ -44,8 +62,7 @@ public class Inicio {
 		Thread thread = new Thread(panel);
 
 		// Arrancar el juego
-		thread.start();
+		thread.start();	
 
 	}
-
 }

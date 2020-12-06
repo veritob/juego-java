@@ -25,6 +25,8 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private ElementoBasico enemigoImagenBlue;
 	private ElementoBasico enemigoImagenRed;
 	private ElementoBasico enemigoImagenGreen;
+	private Puntaje puntaje;
+	private Comida comida;
 
 	public Prueba1(int anchoJuego, int largoJuego) {
 		inicializarVentana(anchoJuego, largoJuego);
@@ -40,6 +42,8 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.enemigoImagenGreen = new EnemigoImagen(400, 300 - 20, 0, 0, 40, 40, "/ghostGreen.gif");
 		this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
+		this.puntaje = new Puntaje();
+		this.comida = new Comida();
 	}
 
 	private int[][] inicializarTableroPosiciones(int anchoJuego, int largoJuego) {
@@ -186,9 +190,12 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 			dibujarPortada(g);
 		} else {
 			dibujarInicioJuego(g);
-
+			this.comida.dibujarse(g);
+			this.comida.verificarComida(g, this.jugador, this.puntaje, this.sonidos);
+			this.puntaje.refreshPuntaje(g);
 		}
 		dibujar();
+		
 	}
 
 	private void esperar(int milisegundos) {
@@ -259,10 +266,10 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void dibujarInicioJuego(Graphics g) {
 		tablero.dibujarse(g);
 		jugador.dibujarse(g);
-		enemigoImagenViolet.dibujarse(g);
-		enemigoImagenBlue.dibujarse(g);
-		enemigoImagenRed.dibujarse(g);
-		enemigoImagenGreen.dibujarse(g);
+		//enemigoImagenViolet.dibujarse(g);
+		//enemigoImagenBlue.dibujarse(g);
+		//enemigoImagenRed.dibujarse(g);
+		//enemigoImagenGreen.dibujarse(g);
 	}
 //aca se dibuja solo la pantalla de inicio
 	private void dibujarPortada(Graphics g) {
