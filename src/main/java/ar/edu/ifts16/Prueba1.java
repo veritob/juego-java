@@ -1,23 +1,26 @@
 package ar.edu.ifts16;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Prueba1 extends JPanel implements Runnable, KeyListener {
 
-	private static final long serialVersionUID = 1L;
-	private final static int PANTALLA_INICIO = 1;
-	private final static int PANTALLA_JUEGO = 2;
+	private static long serialVersionUID = 1L;
+	private static final int PANTALLA_INICIO = 1;
+	private static final int PANTALLA_JUEGO = 2;
+	private static final int PANTALLA_ESPERA = 3;
+	private static final int PANTALLA_PERDEDOR = 4;
+	private static final int PANTALLA_GANADOR = 5;
 	private int anchoJuego;
 	private int largoJuego;
 	private Sonidos sonidos;
 	private PantallaImagen portada;
+	private PantallaImagen pantallaGanador;
 	private PantallaImagen tablero;
+	private PantallaImagen pantallaEsperar;
 	private int[][] tableroPosiciones;
 	private int pantallaActual;
 	private ElementoBasico jugador;
@@ -27,23 +30,39 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private ElementoBasico enemigoImagenGreen;
 	private Puntaje puntaje;
 	private Comida comida;
+	private Vidas vidas;
+	private final static int POSICION_ENEMIGO_INICIAL_X = 200;
+	private final static int POSICION_ENEMIGO_INICIAL_Y = 200;
+
 
 	public Prueba1(int anchoJuego, int largoJuego) {
 		inicializarVentana(anchoJuego, largoJuego);
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
 		sonidos.tocarSonido("tic");
-		this.sonidos.repetirSonido("tic");
 		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego2.png");
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
-		this.enemigoImagenViolet = new EnemigoImagen(300, 300 - 20, 0, 0, 40, 40, "/ghostViolet.gif");
-		this.enemigoImagenBlue = new EnemigoImagen(100, 100 - 20, 0, 0, 40, 40, "/ghostBlue.gif");
-		this.enemigoImagenRed = new EnemigoImagen(300, 100 - 20, 0, 0, 40, 40, "/ghostRed.gif");
-		this.enemigoImagenGreen = new EnemigoImagen(400, 300 - 20, 0, 0, 40, 40, "/ghostGreen.gif");
+		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/espera5segundos.png");
+		this.enemigoImagenViolet = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostViolet.gif");
+		this.enemigoImagenBlue = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostBlue.gif");
+		this.enemigoImagenRed = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostRed.gif");
+		this.enemigoImagenGreen = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostGreen.gif");
 		this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
 		this.puntaje = new Puntaje();
 		this.comida = new Comida();
+		this.vidas = new Vidas();
+	}
+
+	private void inicializarJuego() {
+		enemigoImagenViolet.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
+		enemigoImagenViolet.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
+		enemigoImagenBlue.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
+		enemigoImagenBlue.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
+		enemigoImagenRed.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
+		enemigoImagenRed.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
+		enemigoImagenGreen.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
+		enemigoImagenGreen.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
 	}
 
 	private int[][] inicializarTableroPosiciones(int anchoJuego, int largoJuego) {
@@ -76,7 +95,13 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		while (true) {
 			actualizarAmbiente();
 			dibujar();
-			esperar(20);
+			if (pantallaActual == PANTALLA_ESPERA) {
+				esperar(5000);
+				inicializarJuego();
+				pantallaActual = PANTALLA_JUEGO;
+			} else {
+				esperar(20);
+			}
 		}
 	}
 
@@ -145,6 +170,25 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 
 		verificarRebotePelotaContraParedLateral();
 		verificarRebotePelotaContraLaParedSuperior();
+		verificarColisionEntreEnemigoYJugador();
+		verificarFinDeJuego();
+	}
+
+	private void verificarColisionEntreEnemigoYJugador() {
+		if (jugador.hayColision(enemigoImagenBlue) ||
+				jugador.hayColision(enemigoImagenGreen) ||
+				jugador.hayColision(enemigoImagenRed) ||
+				jugador.hayColision(enemigoImagenViolet)) {
+				vidas.perderVida(sonidos);
+				pantallaActual = PANTALLA_ESPERA;
+
+		}
+	}
+
+	private void verificarFinDeJuego() {
+		if (vidas.getVidasActual() == 0) {
+			pantallaActual = PANTALLA_PERDEDOR;
+		}
 	}
 
 	// se verifica si la pelota colisiona contra la pared lateral, si es asi, se
@@ -186,16 +230,22 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (pantallaActual == PANTALLA_INICIO) {
-			dibujarPortada(g);
-		} else {
-			dibujarInicioJuego(g);
-			this.comida.dibujarse(g);
-			this.comida.verificarComida(g, this.jugador, this.puntaje, this.sonidos);
-			this.puntaje.refreshPuntaje(g);
+		switch (pantallaActual) {
+			case PANTALLA_INICIO:
+				dibujarPortada(g);
+				break;
+			case PANTALLA_JUEGO:
+				dibujarInicioJuego(g);
+				this.comida.dibujarse(g);
+				this.comida.verificarComida(g, this.jugador, this.puntaje, this.sonidos);
+				this.puntaje.refreshPuntaje(g);
+				this.vidas.dibujarse(g);
+				break;
+			case PANTALLA_ESPERA:
+				dibujarEspera(g);
+				break;
 		}
 		dibujar();
-		
 	}
 
 	private void esperar(int milisegundos) {
@@ -270,10 +320,17 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		enemigoImagenBlue.dibujarse(g);
 		enemigoImagenRed.dibujarse(g);
 		enemigoImagenGreen.dibujarse(g);
+		vidas.dibujarse(g);
 	}
-//aca se dibuja solo la pantalla de inicio
+
+
+	//aca se dibuja solo la pantalla de inicio
 	private void dibujarPortada(Graphics g) {
 		portada.dibujarse(g);
+	}
+
+	private void dibujarEspera(Graphics g) {
+		pantallaEsperar.dibujarse(g);
 	}
 
 }
