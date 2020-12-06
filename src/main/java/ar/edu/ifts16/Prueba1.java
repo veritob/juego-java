@@ -266,10 +266,10 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void dibujarInicioJuego(Graphics g) {
 		tablero.dibujarse(g);
 		jugador.dibujarse(g);
-		//enemigoImagenViolet.dibujarse(g);
-		//enemigoImagenBlue.dibujarse(g);
-		//enemigoImagenRed.dibujarse(g);
-		//enemigoImagenGreen.dibujarse(g);
+		enemigoImagenViolet.dibujarse(g);
+		enemigoImagenBlue.dibujarse(g);
+		enemigoImagenRed.dibujarse(g);
+		enemigoImagenGreen.dibujarse(g);
 	}
 //aca se dibuja solo la pantalla de inicio
 	private void dibujarPortada(Graphics g) {
