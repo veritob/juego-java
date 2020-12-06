@@ -15,9 +15,9 @@ import javax.swing.WindowConstants;
 
 public class Inicio {
 	private final Font smallfont = new Font("Helvetica", Font.BOLD, 14);
-	private final int tamañoBloque = 24;
+	private final int tamanioBloque = 24;
     private final int cantidadBloque = 15;
-    private final int tamañoPantalla = cantidadBloque * tamañoBloque;
+    private final int tamanioPantalla = cantidadBloque * tamanioBloque;
     private int vidas, puntaje;
     private Image pacman3left;
     private Dimension d;

@@ -48,8 +48,8 @@ public class Comida implements Dibujable {
 			 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		    };
 	 
-	private int tamañoPantalla = 800;
-	private int tamañoBloque = 20;
+	private int tamanioPantalla = 800;
+	private int tamanioBloque = 20;
 	private int cantidadBloque = 40;
 	
 	public Comida () {
@@ -61,8 +61,8 @@ public class Comida implements Dibujable {
 		short i = 0;
         int x, y;
 
-        for (y = 0; y < tamañoPantalla; y += tamañoBloque) {
-            for (x = 0; x < tamañoPantalla; x += tamañoBloque) {
+        for (y = 0; y < tamanioPantalla; y += tamanioBloque) {
+            for (x = 0; x < tamanioPantalla; x += tamanioBloque) {
                 if (mapaComida[i] != 0) {
                 	graphics.setColor(Color.WHITE);
                 	graphics.fillRect(x + 11, y + 11, 4, 4);
@@ -75,11 +75,11 @@ public class Comida implements Dibujable {
 	}
 	
 	public void verificarComida(Graphics graphics, ElementoBasico jugador, Puntaje puntaje, Sonidos sonidos) {
-		int posicionX = (int)jugador.getPosicionX() + 15; //<-- Aumento 15 por el tamaño de la imagen del pacman
+		int posicionX = (int)jugador.getPosicionX() + 15; //<-- Aumento 15 por el tamanio de la imagen del pacman
 		int posicionY = (int)jugador.getPosicionY() + 15;
 		//int puntajeActual = puntaje.
 		
-		int pos = posicionX / tamañoBloque + this.cantidadBloque * (posicionY / tamañoBloque);
+		int pos = posicionX / tamanioBloque + this.cantidadBloque * (posicionY / tamanioBloque);
         short ch = mapaComida[pos];
 
         if (ch != 0) {
