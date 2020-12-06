@@ -39,7 +39,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		inicializarVentana(anchoJuego, largoJuego);
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
-		sonidos.tocarSonido("tic");
+		sonidos.tocarSonido("background");
 		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego2.png");
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/espera5segundos.png");
@@ -146,13 +146,13 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		if (enemigoImagenRed.getPosicionX() < jugador.getPosicionX()) {
 			enemigoImagenRed.setVelocidadX(0.5);
 		} else {
-			enemigoImagenRed.setVelocidadX(0.5);
+			enemigoImagenRed.setVelocidadX(-0.5);
 		}
 
 		if (enemigoImagenRed.getPosicionY() < jugador.getPosicionY()) {
 			enemigoImagenRed.setVelocidadY(0.5);
 		} else {
-			enemigoImagenRed.setVelocidadY(0.5);
+			enemigoImagenRed.setVelocidadY(-0.5);
 		}
 
 		// Green
