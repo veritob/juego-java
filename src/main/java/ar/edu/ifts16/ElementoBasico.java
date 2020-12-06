@@ -26,6 +26,24 @@ public abstract class ElementoBasico implements Elemento {
 // aca getters y setters que utilizaran jugador y enemigo
 	public abstract void dibujarse(Graphics graphics);
 
+	@Override
+	public boolean hayColision(Elemento elemento) {
+		if(Utilidades.hayColision(
+				(int) this.getPosicionX(),
+				(int) this.getPosicionY(),
+				this.getAncho(),
+				this.getLargo(),
+				(int) elemento.getPosicionX(),
+				(int) elemento.getPosicionY(),
+				elemento.getAncho(),
+				elemento.getLargo()))
+		{
+			return true;
+		} else{
+			return false;
+		}
+	}
+
 	public void moverse() {
 		posicionX = posicionX + velocidadX;
 		posicionY = posicionY + velocidadY;
