@@ -47,8 +47,8 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.vidas = new Vidas();
 		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego2.png");
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
-		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/espera5segundos.png");
-		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/perdiste el juego.png", this.puntaje);
+		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/Perdiste1vidaEsperar.jpg");
+		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/Perdiste.jpeg", this.puntaje);
 		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.png");
 		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.png");
 		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.png");
