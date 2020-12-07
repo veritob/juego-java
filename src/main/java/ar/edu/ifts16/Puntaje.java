@@ -38,4 +38,8 @@ public class Puntaje{
 		this.puntajeActual = 0;
 		this.refreshPuntaje(graphics);
 	}
+
+	public int getPuntajeActual() {
+		return puntajeActual;
+	}
 }

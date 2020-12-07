@@ -21,6 +21,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private PantallaImagen pantallaGanador;
 	private PantallaImagen tablero;
 	private PantallaImagen pantallaEsperar;
+	private PantallaPerdedor pantallaPerdedor;
 	private int[][] tableroPosiciones;
 	private int pantallaActual;
 	private ElementoBasico jugador;
@@ -40,18 +41,19 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
 		sonidos.tocarSonido("background");
+		this.puntaje = new Puntaje();
+		this.comida = new Comida();
+		this.vidas = new Vidas();
 		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego2.png");
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/espera5segundos.png");
+		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/perdiste el juego.png", this.puntaje);
 		this.enemigoImagenViolet = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostViolet.gif");
 		this.enemigoImagenBlue = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostBlue.gif");
 		this.enemigoImagenRed = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostRed.gif");
 		this.enemigoImagenGreen = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostGreen.gif");
 		this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
-		this.puntaje = new Puntaje();
-		this.comida = new Comida();
-		this.vidas = new Vidas();
 	}
 
 	private void inicializarJuego() {
@@ -93,15 +95,16 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	@Override
 	public void run() {
 		while (true) {
-			actualizarAmbiente();
-			dibujar();
+			if (pantallaActual == PANTALLA_JUEGO) {
+				actualizarAmbiente();
+			}
 			if (pantallaActual == PANTALLA_ESPERA) {
 				esperar(5000);
 				inicializarJuego();
 				pantallaActual = PANTALLA_JUEGO;
-			} else {
-				esperar(20);
 			}
+			dibujar();
+			esperar(20);
 		}
 	}
 
@@ -171,7 +174,6 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		verificarRebotePelotaContraParedLateral();
 		verificarRebotePelotaContraLaParedSuperior();
 		verificarColisionEntreEnemigoYJugador();
-		verificarFinDeJuego();
 	}
 
 	private void verificarColisionEntreEnemigoYJugador() {
@@ -179,15 +181,13 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 				jugador.hayColision(enemigoImagenGreen) ||
 				jugador.hayColision(enemigoImagenRed) ||
 				jugador.hayColision(enemigoImagenViolet)) {
-				vidas.perderVida(sonidos);
+			vidas.perderVida(sonidos);
+
+			if (vidas.getVidasActual()==0){
+				pantallaActual = PANTALLA_PERDEDOR;
+			} else {
 				pantallaActual = PANTALLA_ESPERA;
-
-		}
-	}
-
-	private void verificarFinDeJuego() {
-		if (vidas.getVidasActual() == 0) {
-			pantallaActual = PANTALLA_PERDEDOR;
+			}
 		}
 	}
 
@@ -243,6 +243,9 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 				break;
 			case PANTALLA_ESPERA:
 				dibujarEspera(g);
+				break;
+			case PANTALLA_PERDEDOR:
+				dibujarPantallaPerdedor(g);
 				break;
 		}
 		dibujar();
@@ -332,5 +335,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void dibujarEspera(Graphics g) {
 		pantallaEsperar.dibujarse(g);
 	}
-
+	private void dibujarPantallaPerdedor(Graphics g) {
+		pantallaPerdedor.dibujarse(g);
+	}
 }
