@@ -41,7 +41,6 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		posicionInicialEnemigoY = largoJuego / 2 - 50;
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
-		sonidos.tocarSonido("background");
 		this.puntaje = new Puntaje();
 		this.comida = new Comida();
 		this.vidas = new Vidas();
@@ -58,6 +57,8 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	}
 
 	private void inicializarJuego() {
+		sonidos.repetirSonido("background");
+		pantallaActual = PANTALLA_JUEGO;
 		enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX);
 		enemigoImagenViolet.setPosicionY(posicionInicialEnemigoY);
 		enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX);
@@ -102,7 +103,6 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 			if (pantallaActual == PANTALLA_ESPERA) {
 				esperar(5000);
 				inicializarJuego();
-				pantallaActual = PANTALLA_JUEGO;
 			}
 			dibujar();
 			esperar(20);
@@ -183,6 +183,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 				jugador.hayColision(enemigoImagenRed) ||
 				jugador.hayColision(enemigoImagenViolet)) {
 			vidas.perderVida(sonidos);
+			sonidos.detenerSonido("background");
 
 			if (vidas.getVidasActual()==0){
 				pantallaActual = PANTALLA_PERDEDOR;
@@ -268,7 +269,8 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 
 		if (pantallaActual == PANTALLA_INICIO) {
-			pantallaActual = PANTALLA_JUEGO;
+			sonidos.tocarSonido("beginning");
+			inicializarJuego();
 		}
 // aca se setea el movimiento del jugador con su velocidad(setVelocidadX) y x otro lado se le envia el valor de la tecla que toco a jugador imagen para cambiar la posicion de la boca en la imagen
 		if (pantallaActual == PANTALLA_JUEGO) {
@@ -307,9 +309,9 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		try {
 			sonidos = new Sonidos();
 			sonidos.agregarSonido("comer", "sonidos/pacman_chomp.wav");
-			sonidos.agregarSonido("tic", "sonidos/pacman_beginning.wav");
+			sonidos.agregarSonido("beginning", "sonidos/pacman_beginning.wav");
 			sonidos.agregarSonido("muerte", "sonidos/pacman_death.wav");
-			sonidos.agregarSonido("background", "sonidos/pacman_beginning.wav");
+			sonidos.agregarSonido("background", "sonidos/pacman_background.wav");
 		} catch (Exception e1) {
 			throw new RuntimeException(e1);
 		}
