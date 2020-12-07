@@ -54,6 +54,10 @@ public class Inicio {
 		// Achicar la ventana lo maximo posible para que entren los componentes
 		ventana.pack();
 
+		// Centrar pantalla
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		ventana.setLocation(dim.width/2-ventana.getSize().width/2, dim.height/2-ventana.getSize().height/2);
+
 		// ventana.addMouseMotionListener(panel3);
 		ventana.addKeyListener(panel);
 
