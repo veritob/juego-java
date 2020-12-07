@@ -49,10 +49,10 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/espera5segundos.png");
 		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/perdiste el juego.png", this.puntaje);
-		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.gif");
-		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.gif");
-		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.gif");
-		this.enemigoImagenGreen = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostGreen.gif");
+		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.png");
+		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.png");
+		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.png");
+		this.enemigoImagenGreen = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostGreen.png");
 		this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
 	}
@@ -237,7 +237,6 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 				break;
 			case PANTALLA_JUEGO:
 				dibujarInicioJuego(g);
-				this.comida.dibujarse(g);
 				this.comida.verificarComida(g, this.jugador, this.puntaje, this.sonidos);
 				this.puntaje.refreshPuntaje(g);
 				this.vidas.dibujarse(g);
@@ -307,7 +306,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void cargarSonidos() {
 		try {
 			sonidos = new Sonidos();
-			sonidos.agregarSonido("toc", "sonidos/pacman_chomp.wav");
+			sonidos.agregarSonido("comer", "sonidos/pacman_chomp.wav");
 			sonidos.agregarSonido("tic", "sonidos/pacman_beginning.wav");
 			sonidos.agregarSonido("muerte", "sonidos/pacman_death.wav");
 			sonidos.agregarSonido("background", "sonidos/pacman_beginning.wav");
@@ -320,6 +319,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void dibujarInicioJuego(Graphics g) {
 		tablero.dibujarse(g);
 		jugador.dibujarse(g);
+		this.comida.dibujarse(g);
 		enemigoImagenViolet.dibujarse(g);
 		enemigoImagenBlue.dibujarse(g);
 		enemigoImagenRed.dibujarse(g);

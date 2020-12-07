@@ -84,7 +84,7 @@ public class Comida implements Dibujable {
 
         if (ch != 0) {
         	mapaComida[pos] = 0;
-        	sonidos.tocarSonido("toc");
+        	sonidos.tocarSonido("comer");
         	puntaje.aumentarPuntaje(graphics);
         }
 	}
