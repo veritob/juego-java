@@ -32,12 +32,13 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private Puntaje puntaje;
 	private Comida comida;
 	private Vidas vidas;
-	private final static int POSICION_ENEMIGO_INICIAL_X = 200;
-	private final static int POSICION_ENEMIGO_INICIAL_Y = 200;
-
+	private static int posicionInicialEnemigoX;
+	private static int posicionInicialEnemigoY;
 
 	public Prueba1(int anchoJuego, int largoJuego) {
 		inicializarVentana(anchoJuego, largoJuego);
+		posicionInicialEnemigoX = anchoJuego / 2;
+		posicionInicialEnemigoY = largoJuego / 2 - 50;
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
 		sonidos.tocarSonido("background");
@@ -48,23 +49,23 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/espera5segundos.png");
 		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/perdiste el juego.png", this.puntaje);
-		this.enemigoImagenViolet = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostViolet.gif");
-		this.enemigoImagenBlue = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostBlue.gif");
-		this.enemigoImagenRed = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostRed.gif");
-		this.enemigoImagenGreen = new EnemigoImagen(POSICION_ENEMIGO_INICIAL_X, POSICION_ENEMIGO_INICIAL_Y, 0, 0, 40, 40, "/ghostGreen.gif");
+		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.gif");
+		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.gif");
+		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.gif");
+		this.enemigoImagenGreen = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostGreen.gif");
 		this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
 	}
 
 	private void inicializarJuego() {
-		enemigoImagenViolet.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
-		enemigoImagenViolet.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
-		enemigoImagenBlue.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
-		enemigoImagenBlue.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
-		enemigoImagenRed.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
-		enemigoImagenRed.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
-		enemigoImagenGreen.setPosicionX(POSICION_ENEMIGO_INICIAL_X);
-		enemigoImagenGreen.setPosicionY(POSICION_ENEMIGO_INICIAL_Y);
+		enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenViolet.setPosicionY(posicionInicialEnemigoY);
+		enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenBlue.setPosicionY(posicionInicialEnemigoY);
+		enemigoImagenRed.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenRed.setPosicionY(posicionInicialEnemigoY);
+		enemigoImagenGreen.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenGreen.setPosicionY(posicionInicialEnemigoY);
 	}
 
 	private int[][] inicializarTableroPosiciones(int anchoJuego, int largoJuego) {
