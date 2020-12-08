@@ -276,22 +276,22 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		if (pantallaActual == PANTALLA_JUEGO) {
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				jugador.setMoverse(3);
-				jugador.setVelocidadX(3);
+				jugador.setVelocidadX(4);
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				jugador.setMoverse(4);
-				jugador.setVelocidadX(-3);
+				jugador.setVelocidadX(-4);
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				jugador.setMoverse(1);
-				jugador.setVelocidadY(-3);
+				jugador.setVelocidadY(-4);
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				jugador.setMoverse(2);
-				jugador.setVelocidadY(3);
+				jugador.setVelocidadY(4);
 			}
 
 		}

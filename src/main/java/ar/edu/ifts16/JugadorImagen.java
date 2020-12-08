@@ -31,10 +31,10 @@ public class JugadorImagen extends Jugador {
 
 // aca se les asigna valor a los atributos anteriores, con el absolutePath +  la imagen deseada.
 		try {
-			this.imgU = ImageIO.read(new File(absolutePath + "/up1.gif"));
-			this.imgD = ImageIO.read(new File(absolutePath + "/down1.gif"));
-			this.imgR = ImageIO.read(new File(absolutePath + "/rightAnimado.gif"));
-			this.imgL = ImageIO.read(new File(absolutePath + "/left1.gif"));
+			this.imgU = ImageIO.read(new File(absolutePath + "/pacmanUp.png"));
+			this.imgD = ImageIO.read(new File(absolutePath + "/pacmanDown.png"));
+			this.imgR = ImageIO.read(new File(absolutePath + "/pacmanRight.png"));
+			this.imgL = ImageIO.read(new File(absolutePath + "/pacmanLeft.png"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
