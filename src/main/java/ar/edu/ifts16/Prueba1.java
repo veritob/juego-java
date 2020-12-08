@@ -38,7 +38,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	public Prueba1(int anchoJuego, int largoJuego) {
 		inicializarVentana(anchoJuego, largoJuego);
 		posicionInicialEnemigoX = anchoJuego / 2;
-		posicionInicialEnemigoY = largoJuego / 2 - 50;
+		posicionInicialEnemigoY = largoJuego / 2 - 40;
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
 		sonidos.tocarSonido("beginning");
@@ -49,9 +49,9 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/Perdiste1vidaEsperar.jpg");
 		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/Perdiste.jpeg", this.puntaje);
-		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.png");
-		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.png");
-		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.png");
+		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX-20, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.png");
+		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX-15, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.png");
+		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX-10, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.png");
 		this.enemigoImagenGreen = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostGreen.png");
 		this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
@@ -60,13 +60,13 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void inicializarJuego() {
 		sonidos.repetirSonido("background");
 		pantallaActual = PANTALLA_JUEGO;
-		enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX-70);
 		enemigoImagenViolet.setPosicionY(posicionInicialEnemigoY);
-		enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX-30);
 		enemigoImagenBlue.setPosicionY(posicionInicialEnemigoY);
-		enemigoImagenRed.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenRed.setPosicionX(posicionInicialEnemigoX+10);
 		enemigoImagenRed.setPosicionY(posicionInicialEnemigoY);
-		enemigoImagenGreen.setPosicionX(posicionInicialEnemigoX);
+		enemigoImagenGreen.setPosicionX(posicionInicialEnemigoX+50);
 		enemigoImagenGreen.setPosicionY(posicionInicialEnemigoY);
 	}
 
