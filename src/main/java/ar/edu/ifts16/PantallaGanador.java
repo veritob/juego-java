@@ -21,7 +21,7 @@ public class PantallaGanador extends PantallaImagen {
     }}
 
     private void mostrarMensaje(Graphics g, String mensaje) {
-        g.setColor(Color.blue);
+        g.setColor(Color.white);
         g.setFont(new Font("Arial", 8, 30));
         g.drawString(mensaje, 10, 40);
     }
