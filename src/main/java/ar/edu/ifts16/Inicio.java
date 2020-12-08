@@ -8,7 +8,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -33,8 +38,14 @@ public class Inicio {
 		System.setProperty("sun.java2d.opengl", "true");
 
 		// Crear un objeto de tipo JFrame que es la ventana donde va estar el juego
-		JFrame ventana = new JFrame("Mi Juego");
-
+		JFrame ventana = new JFrame("Pac-Man ATR");
+		String path = null;
+		try {
+			path = Paths.get(Inicio.class.getClassLoader().getResource("images/icono.png").toURI()).toString();
+			ventana.setIconImage(ImageIO.read(new File(path)));
+		} catch (URISyntaxException | IOException e) {
+			e.printStackTrace();
+		}
 		// Cerrar la aplicacion cuando el usuario hace click en la 'X'
 		ventana.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
