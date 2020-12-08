@@ -1,11 +1,11 @@
 package ar.edu.ifts16;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Arrays;
 
 public class Comida implements Dibujable {
-	 private final short mapaComida[] = {
+	 private int mapaComida[] = {
 			 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 			 0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
 			 0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,
@@ -58,7 +58,7 @@ public class Comida implements Dibujable {
 	
 	@Override
 	public void dibujarse(Graphics graphics) {
-		short i = 0;
+		int i = 0;
         int x, y;
 
         for (y = 0; y < tamanioPantalla; y += tamanioBloque) {
@@ -77,15 +77,21 @@ public class Comida implements Dibujable {
 	public void verificarComida(Graphics graphics, ElementoBasico jugador, Puntaje puntaje, Sonidos sonidos) {
 		int posicionX = (int)jugador.getPosicionX() + 15; //<-- Aumento 15 por el tamanio de la imagen del pacman
 		int posicionY = (int)jugador.getPosicionY() + 15;
-		//int puntajeActual = puntaje.
 		
 		int pos = posicionX / tamanioBloque + this.cantidadBloque * (posicionY / tamanioBloque);
-        short ch = mapaComida[pos];
+        int ch = mapaComida[pos];
 
         if (ch != 0) {
         	mapaComida[pos] = 0;
         	sonidos.tocarSonido("comer");
         	puntaje.aumentarPuntaje(graphics);
         }
+	}
+	
+	//Devuelvo el total de 1 que hay en el array para saber el total de la comida
+	public int getTotalComida() {
+		return (int)Arrays.stream(this.mapaComida)
+		.filter(e -> e == 1)
+		.count();
 	}
 }

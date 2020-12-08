@@ -49,6 +49,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
 		this.pantallaEsperar = new PantallaImagen(anchoJuego, largoJuego, "images/Perdiste1vidaEsperar.jpg");
 		this.pantallaPerdedor = new PantallaPerdedor(anchoJuego, largoJuego, "images/Perdiste.jpeg", this.puntaje);
+		this.pantallaGanador = new PantallaGanador(anchoJuego, largoJuego, "images/ganaste.jpeg", this.puntaje);
 		this.enemigoImagenViolet = new EnemigoImagen(posicionInicialEnemigoX-20, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostViolet.png");
 		this.enemigoImagenBlue = new EnemigoImagen(posicionInicialEnemigoX-15, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostBlue.png");
 		this.enemigoImagenRed = new EnemigoImagen(posicionInicialEnemigoX-10, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostRed.png");
@@ -224,7 +225,15 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 			jugador.setVelocidadY(0);
 		}
 	}
-
+	
+	private void verificarGanador() {
+		int a = this.comida.getTotalComida();
+		
+		if(this.puntaje.getPuntajeActual() == this.comida.getTotalComida()) {
+			this.pantallaActual = 5;
+		}
+	}
+	
 	private void dibujar() {
 		this.repaint();
 	}
@@ -242,12 +251,16 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 				this.comida.verificarComida(g, this.jugador, this.puntaje, this.sonidos);
 				this.puntaje.refreshPuntaje(g);
 				this.vidas.dibujarse(g);
+				this.verificarGanador();
 				break;
 			case PANTALLA_ESPERA:
 				dibujarEspera(g);
 				break;
 			case PANTALLA_PERDEDOR:
 				dibujarPantallaPerdedor(g);
+				break;
+			case PANTALLA_GANADOR:
+				dibujarPantallaGanador(g);
 				break;
 		}
 		dibujar();
@@ -338,7 +351,12 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	private void dibujarEspera(Graphics g) {
 		pantallaEsperar.dibujarse(g);
 	}
+	
 	private void dibujarPantallaPerdedor(Graphics g) {
 		pantallaPerdedor.dibujarse(g);
+	}
+	
+	private void dibujarPantallaGanador(Graphics g) {
+		pantallaGanador.dibujarse(g);
 	}
 }
