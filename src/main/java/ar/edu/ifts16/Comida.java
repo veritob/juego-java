@@ -48,12 +48,14 @@ public class Comida implements Dibujable {
 			 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		    };
 	 
-	private int tamanioPantalla = 800;
+	private int tamanioPantalla;
 	private int tamanioBloque = 20;
 	private int cantidadBloque = 40;
+	private int totalComida = 0;
 	
-	public Comida () {
-		
+	public Comida (int anchoJuego) {
+		this.tamanioPantalla = anchoJuego;
+		totalComida = calcularTotalComida();
 	}
 	
 	@Override
@@ -90,8 +92,12 @@ public class Comida implements Dibujable {
 	
 	//Devuelvo el total de 1 que hay en el array para saber el total de la comida
 	public int getTotalComida() {
+		return this.totalComida;
+	}
+	
+	private int calcularTotalComida() {
 		return (int)Arrays.stream(this.mapaComida)
-		.filter(e -> e == 1)
-		.count();
+				.filter(e -> e == 1)
+				.count();
 	}
 }

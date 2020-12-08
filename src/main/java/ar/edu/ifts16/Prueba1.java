@@ -43,7 +43,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		cargarSonidos();
 		sonidos.tocarSonido("beginning");
 		this.puntaje = new Puntaje();
-		this.comida = new Comida();
+		this.comida = new Comida(anchoJuego);
 		this.vidas = new Vidas();
 		this.portada = new PantallaImagen(anchoJuego, largoJuego, "images/bienvenidoAlJuego2.png");
 		this.tablero = new PantallaImagen(anchoJuego, largoJuego, "images/tablero2.png");
