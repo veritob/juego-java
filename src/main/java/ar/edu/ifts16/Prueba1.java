@@ -41,6 +41,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		posicionInicialEnemigoY = largoJuego / 2 - 50;
 		this.pantallaActual = PANTALLA_INICIO;
 		cargarSonidos();
+		sonidos.tocarSonido("beginning");
 		this.puntaje = new Puntaje();
 		this.comida = new Comida();
 		this.vidas = new Vidas();
@@ -269,7 +270,6 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 
 		if (pantallaActual == PANTALLA_INICIO) {
-			sonidos.tocarSonido("beginning");
 			inicializarJuego();
 		}
 // aca se setea el movimiento del jugador con su velocidad(setVelocidadX) y x otro lado se le envia el valor de la tecla que toco a jugador imagen para cambiar la posicion de la boca en la imagen
