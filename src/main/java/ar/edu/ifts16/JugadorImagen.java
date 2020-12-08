@@ -57,6 +57,10 @@ public class JugadorImagen extends Jugador {
 			if (this.left) {
 				graphics.drawImage(this.imgL, gpx, gpy, this.getAncho(), this.getLargo(), null);
 			}
+			// Dibujarse a la derecha al comienzo del juego
+			if (!this.up && !this.down && !this.right && !this.left) {
+				graphics.drawImage(this.imgR, gpx, gpy, this.getAncho(), this.getLargo(), null);
+			}
 		} catch (Exception e1) {
 			throw new RuntimeException(e1);
 		}
