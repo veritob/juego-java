@@ -38,7 +38,6 @@ public class Juego extends JPanel implements Runnable, KeyListener {
         inicializarVentana(anchoJuego, largoJuego);
         posicionInicialEnemigoX = anchoJuego / 2;
         posicionInicialEnemigoY = largoJuego / 2 - 40;
-        this.pantallaActual = PANTALLA_INICIO;
         cargarSonidos();
         sonidos.tocarSonido("beginning");
         this.puntaje = new Puntaje();
@@ -55,20 +54,23 @@ public class Juego extends JPanel implements Runnable, KeyListener {
         this.enemigoImagenGreen = new EnemigoImagen(posicionInicialEnemigoX, posicionInicialEnemigoY, 0, 0, 40, 40, "/ghostGreen.png");
         this.jugador = new JugadorImagen(40, largoJuego - 60, 0, 0, 30, 30);
         this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
+        inicializarJuego(true);
     }
 
     private void inicializarJuego(boolean nuevaPartida) {
         if (nuevaPartida == true) {
             pantallaActual = PANTALLA_INICIO;
             sonidos.tocarSonido("beginning");
+            this.jugador.setPosicionX(40);
+            this.jugador.setPosicionY(largoJuego - 60);
             this.puntaje.resetearPuntaje();
             this.vidas.resetearVidas();
             this.comida.resetearComida();
-
-
+        } else {
+            pantallaActual = PANTALLA_JUEGO;
+            sonidos.repetirSonido("background");
         }
-        pantallaActual = PANTALLA_JUEGO;
-        sonidos.repetirSonido("background");
+
         enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX - 70);
         enemigoImagenViolet.setPosicionY(posicionInicialEnemigoY);
         enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX - 30);
@@ -275,10 +277,10 @@ public class Juego extends JPanel implements Runnable, KeyListener {
     public void keyPressed(KeyEvent e) {
 
         if (pantallaActual == PANTALLA_INICIO) {
-            inicializarJuego(true);
+            inicializarJuego(false);
         }
         if (pantallaActual == PANTALLA_PERDEDOR || pantallaActual == PANTALLA_GANADOR) {
-            pantallaActual = PANTALLA_INICIO;
+            inicializarJuego(true);
         }
 // aca se setea el movimiento del jugador con su velocidad(setVelocidadX) y x otro lado se le envia el valor de la tecla que toco a jugador imagen para cambiar la posicion de la boca en la imagen
         if (pantallaActual == PANTALLA_JUEGO) {
