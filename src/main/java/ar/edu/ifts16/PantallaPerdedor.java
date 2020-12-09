@@ -30,6 +30,6 @@ public class PantallaPerdedor extends PantallaImagen {
     private void mostrarMensaje1(Graphics g, String mensaje) {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", 8, 20));
-        g.drawString(mensaje, 150, 570);
+        g.drawString(mensaje, 150, 590);
     }
 }

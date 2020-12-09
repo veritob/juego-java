@@ -60,9 +60,12 @@ public class Juego extends JPanel implements Runnable, KeyListener {
     private void inicializarJuego(boolean nuevaPartida) {
         if (nuevaPartida == true) {
             pantallaActual = PANTALLA_INICIO;
+            sonidos.tocarSonido("beginning");
             this.puntaje.resetearPuntaje();
             this.vidas.resetearVidas();
             this.comida.resetearComida();
+
+
         }
         pantallaActual = PANTALLA_JUEGO;
         sonidos.repetirSonido("background");
