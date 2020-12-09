@@ -33,10 +33,8 @@ public class Puntaje{
 		this.refreshPuntaje(graphics);
 	}
 	
-	public void ResetearPuntaje(Graphics graphics)
-	{
+	public void resetearPuntaje() {
 		this.puntajeActual = 0;
-		this.refreshPuntaje(graphics);
 	}
 
 	public int getPuntajeActual() {

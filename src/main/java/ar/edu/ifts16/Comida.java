@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.util.Arrays;
 
 public class Comida implements Dibujable {
-	 private int mapaComida[] = {
+	 private static final int MAPA_COMIDA_INICIAL[] = {
 			 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 			 0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
 			 0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,
@@ -47,7 +47,7 @@ public class Comida implements Dibujable {
 			 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 			 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		    };
-	 
+	private int[] mapaComida;
 	private int tamanioPantalla;
 	private int tamanioBloque = 20;
 	private int cantidadBloque = 40;
@@ -55,6 +55,7 @@ public class Comida implements Dibujable {
 	
 	public Comida (int anchoJuego) {
 		this.tamanioPantalla = anchoJuego;
+		this.mapaComida=MAPA_COMIDA_INICIAL;
 		totalComida = calcularTotalComida();
 	}
 	
@@ -99,5 +100,9 @@ public class Comida implements Dibujable {
 		return (int)Arrays.stream(this.mapaComida)
 				.filter(e -> e == 1)
 				.count();
+	}
+	public void resetearComida() {
+		this.mapaComida=MAPA_COMIDA_INICIAL;
+		totalComida = calcularTotalComida();
 	}
 }

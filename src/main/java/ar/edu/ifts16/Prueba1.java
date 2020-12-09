@@ -58,9 +58,18 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		this.tableroPosiciones = inicializarTableroPosiciones(anchoJuego, largoJuego);
 	}
 
-	private void inicializarJuego() {
-		sonidos.repetirSonido("background");
+	private void inicializarJuego(boolean nuevaPartida) {
+		if(nuevaPartida==true) {
+			pantallaActual = PANTALLA_INICIO;
+			this.puntaje.resetearPuntaje();
+			this.vidas.resetearVidas();
+			this.comida.resetearComida();
+
+
+
+		}
 		pantallaActual = PANTALLA_JUEGO;
+		sonidos.repetirSonido("background");
 		enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX-70);
 		enemigoImagenViolet.setPosicionY(posicionInicialEnemigoY);
 		enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX-30);
@@ -70,6 +79,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		enemigoImagenGreen.setPosicionX(posicionInicialEnemigoX+50);
 		enemigoImagenGreen.setPosicionY(posicionInicialEnemigoY);
 	}
+
 
 	private int[][] inicializarTableroPosiciones(int anchoJuego, int largoJuego) {
 		int[][] resultado = new int[largoJuego][anchoJuego];
@@ -104,7 +114,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 			}
 			if (pantallaActual == PANTALLA_ESPERA) {
 				esperar(5000);
-				inicializarJuego();
+				inicializarJuego(false);
 			}
 			dibujar();
 			esperar(20);
@@ -202,11 +212,7 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 		double nuevaPosicionX = jugador.getPosicionX() + jugador.getVelocidadX();
 		double nuevaPosicionY = jugador.getPosicionY() + jugador.getVelocidadY();
 
-//		if (jugador.getVelocidadX() != 0 || jugador.getVelocidadY() != 0) {
-//			System.out.println(String.format("(%s, %s)", nuevaPosicionX, nuevaPosicionY));
-//			System.out.println("anchoJuego = " + anchoJuego);
-//			System.out.println("largoJuego = " + largoJuego);
-//		}
+//
 
 		if (nuevaPosicionX >= anchoJuego || nuevaPosicionX < 0) {
 			jugador.setVelocidadX(0);
@@ -283,7 +289,10 @@ public class Prueba1 extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 
 		if (pantallaActual == PANTALLA_INICIO) {
-			inicializarJuego();
+			inicializarJuego(true);
+		}
+		if (pantallaActual == PANTALLA_PERDEDOR||pantallaActual==PANTALLA_GANADOR){
+		pantallaActual=PANTALLA_INICIO;
 		}
 // aca se setea el movimiento del jugador con su velocidad(setVelocidadX) y x otro lado se le envia el valor de la tecla que toco a jugador imagen para cambiar la posicion de la boca en la imagen
 		if (pantallaActual == PANTALLA_JUEGO) {

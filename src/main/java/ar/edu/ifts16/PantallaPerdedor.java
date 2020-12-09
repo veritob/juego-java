@@ -20,6 +20,7 @@ public class PantallaPerdedor extends PantallaImagen {
             mensajePuntos += "s";
         }
         mostrarMensaje(graphics, "Obtuviste: " + puntaje.getPuntajeActual() + mensajePuntos);
+        mostrarMensaje1(graphics, "Presiona cualquier tecla para iniciar una nueva partida");
     }
 
     private void mostrarMensaje(Graphics g, String mensaje) {
@@ -27,5 +28,9 @@ public class PantallaPerdedor extends PantallaImagen {
         g.setFont(new Font("Arial", 8, 30));
         g.drawString(mensaje, ancho/2-150, 380);
     }
-
+    private void mostrarMensaje1(Graphics g, String mensaje) {
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", 8, 20));
+        g.drawString(mensaje, 150, 570);
+    }
 }

@@ -25,6 +25,9 @@ public class Vidas implements Dibujable {
     public int getVidasActual() {
         return vidasActual;
     }
+    public void resetearVidas() {
+        this.vidasActual = 3;
+    }
 
 }
 
