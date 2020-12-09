@@ -46,6 +46,7 @@ public class Comida implements Dibujable {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
+
     private int[] mapaComida;
     private final int tamanioPantalla;
     private final int tamanioBloque = 20;
@@ -54,8 +55,7 @@ public class Comida implements Dibujable {
 
     public Comida(int anchoJuego) {
         this.tamanioPantalla = anchoJuego;
-        this.mapaComida = MAPA_COMIDA_INICIAL;
-        totalComida = calcularTotalComida();
+        this.resetearComida();
     }
 
     @Override
@@ -102,7 +102,7 @@ public class Comida implements Dibujable {
     }
 
     public void resetearComida() {
-        this.mapaComida = MAPA_COMIDA_INICIAL;
+        this.mapaComida = Arrays.copyOf(MAPA_COMIDA_INICIAL, MAPA_COMIDA_INICIAL.length);
         totalComida = calcularTotalComida();
     }
 }
