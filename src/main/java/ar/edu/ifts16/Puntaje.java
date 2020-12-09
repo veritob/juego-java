@@ -1,11 +1,6 @@
 package ar.edu.ifts16;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.image.ImageObserver;
+import java.awt.*;
 
 public class Puntaje{
 
@@ -27,14 +22,9 @@ public class Puntaje{
 		this.puntajeActual++;
 		this.refreshPuntaje(graphics);
 	}
-	
-	public void setPuntajeExtra(int puntajeExtra, Graphics graphics) {
-		this.puntajeActual += puntajeExtra;
-		this.refreshPuntaje(graphics);
-	}
-	
+
 	public void resetearPuntaje() {
-		this.puntajeActual = 0;
+		puntajeActual = 0;
 	}
 
 	public int getPuntajeActual() {

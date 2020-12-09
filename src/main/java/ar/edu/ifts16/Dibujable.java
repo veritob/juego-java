@@ -1,9 +1,9 @@
 package ar.edu.ifts16;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public interface Dibujable {
-    
-    public void dibujarse(Graphics graphics);
+
+    void dibujarse(Graphics graphics);
 
 }

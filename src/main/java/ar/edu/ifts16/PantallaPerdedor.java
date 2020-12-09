@@ -1,12 +1,10 @@
 package ar.edu.ifts16;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class PantallaPerdedor extends PantallaImagen {
 
-    private Puntaje puntaje;
+    private final Puntaje puntaje;
 
     public PantallaPerdedor(int ancho, int largo, String resource, Puntaje puntaje) {
         super(ancho, largo, resource);
@@ -26,8 +24,9 @@ public class PantallaPerdedor extends PantallaImagen {
     private void mostrarMensaje(Graphics g, String mensaje) {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", 8, 30));
-        g.drawString(mensaje, ancho/2-150, 380);
+        g.drawString(mensaje, ancho / 2 - 150, 380);
     }
+
     private void mostrarMensaje1(Graphics g, String mensaje) {
         g.setColor(Color.white);
         g.setFont(new Font("Arial", 8, 20));

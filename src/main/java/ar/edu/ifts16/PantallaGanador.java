@@ -1,8 +1,6 @@
 package ar.edu.ifts16;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 
 public class PantallaGanador extends PantallaImagen {
 
@@ -16,7 +14,6 @@ public class PantallaGanador extends PantallaImagen {
         super.dibujarse(graphics);
         mostrarMensaje(graphics, "Presiona cualquier tecla para iniciar una nueva partida");
     }
-
 
 
     private void mostrarMensaje(Graphics g, String mensaje) {

@@ -1,30 +1,25 @@
 package ar.edu.ifts16;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 public interface Elemento extends Dibujable {
 
-	public double getPosicionX();
+    double getPosicionX();
 
-	public double getPosicionY();
+    double getPosicionY();
 
-	public int getAncho();
+    int getAncho();
 
-	public int getLargo();
+    int getLargo();
 
-	public double getVelocidadX();
+    double getVelocidadX();
 
-	public double getVelocidadY();
+    double getVelocidadY();
 
-	public void dibujarse(Graphics graphics);
+    void dibujarse(Graphics graphics);
 
-	public void moverse();
+    void moverse();
 
-	public boolean hayColision (Elemento elemento);
-
-	public void rebotarEnEjeX();
-
-	public void rebotarEnEjeY();
+    boolean hayColision(Elemento elemento);
 
 }
