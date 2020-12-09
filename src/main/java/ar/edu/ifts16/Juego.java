@@ -61,8 +61,6 @@ public class Juego extends JPanel implements Runnable, KeyListener {
         if (nuevaPartida == true) {
             pantallaActual = PANTALLA_INICIO;
             sonidos.tocarSonido("beginning");
-            this.jugador.setPosicionX(40);
-            this.jugador.setPosicionY(largoJuego - 60);
             this.puntaje.resetearPuntaje();
             this.vidas.resetearVidas();
             this.comida.resetearComida();
@@ -71,6 +69,9 @@ public class Juego extends JPanel implements Runnable, KeyListener {
             sonidos.repetirSonido("background");
         }
 
+        this.jugador.setMoverse(3);
+        this.jugador.setPosicionX(40);
+        this.jugador.setPosicionY(largoJuego - 60);
         enemigoImagenViolet.setPosicionX(posicionInicialEnemigoX - 70);
         enemigoImagenViolet.setPosicionY(posicionInicialEnemigoY);
         enemigoImagenBlue.setPosicionX(posicionInicialEnemigoX - 30);
