@@ -18,7 +18,7 @@ public class PantallaPerdedor extends PantallaImagen {
             mensajePuntos += "s";
         }
         mostrarMensaje(graphics, "Obtuviste: " + puntaje.getPuntajeActual() + mensajePuntos);
-        mostrarMensaje1(graphics, "Presiona cualquier tecla para iniciar una nueva partida");
+        mostrarMensaje1(graphics, "Espere 5 segundos para comenzar una nueva partida");
     }
 
     private void mostrarMensaje(Graphics g, String mensaje) {

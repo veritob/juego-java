@@ -12,7 +12,7 @@ public class PantallaGanador extends PantallaImagen {
 
     public void dibujarse(Graphics graphics) {
         super.dibujarse(graphics);
-        mostrarMensaje(graphics, "Presiona cualquier tecla para iniciar una nueva partida");
+        mostrarMensaje(graphics, "Espere 5 segundos para comenzar una nueva partida");
     }
 
 

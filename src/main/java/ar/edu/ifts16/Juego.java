@@ -118,6 +118,10 @@ public class Juego extends JPanel implements Runnable, KeyListener {
                 esperar(5000);
                 inicializarJuego(false);
             }
+            if (pantallaActual == PANTALLA_PERDEDOR || pantallaActual == PANTALLA_GANADOR) {
+                esperar(5000);
+                inicializarJuego(true);
+            }
             dibujar();
             esperar(20);
         }
@@ -280,9 +284,7 @@ public class Juego extends JPanel implements Runnable, KeyListener {
         if (pantallaActual == PANTALLA_INICIO) {
             inicializarJuego(false);
         }
-        if (pantallaActual == PANTALLA_PERDEDOR || pantallaActual == PANTALLA_GANADOR) {
-            inicializarJuego(true);
-        }
+
 // aca se setea el movimiento del jugador con su velocidad(setVelocidadX) y x otro lado se le envia el valor de la tecla que toco a jugador imagen para cambiar la posicion de la boca en la imagen
         if (pantallaActual == PANTALLA_JUEGO) {
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
